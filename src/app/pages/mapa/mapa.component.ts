@@ -43,28 +43,31 @@ export class MapaComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.map = new Map({
-        container: this.mapContainer.nativeElement,
-        style: maptilersdk.MapStyle.STREETS,
-        center: [139.753, 35.6844],
-        zoom: 14,
-        terrainControl: true,
-        scaleControl: true,
-        fullscreenControl: 'top-left',
-        geolocateControl: true,
-      });
-      new Marker({ color: '#FF0000' })
-        .setLngLat([139.7525, 35.6846])
-        .addTo(this.map);
-      this.map.addControl(
-        new maptilersdk.MaptilerGeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          trackUserLocation: true,
-        }),
-        'top-left'
-      );
+      setTimeout(() => {
+        this.map = new Map({
+          container: this.mapContainer.nativeElement,
+          style: maptilersdk.MapStyle.STREETS,
+          center: [139.753, 35.6844],
+          zoom: 14,
+          terrainControl: true,
+          scaleControl: true,
+          fullscreenControl: 'top-left',
+          geolocateControl: true,
+        });
+        new Marker({ color: '#FF0000' })
+          .setLngLat([139.7525, 35.6846])
+          .addTo(this.map);
+        this.map.addControl(
+          new maptilersdk.MaptilerGeolocateControl({
+            positionOptions: {
+              enableHighAccuracy: true,
+            },
+            trackUserLocation: true,
+          }),
+          'top-left'
+        );
+      }, 5000);
+      
     }
   }
 }
