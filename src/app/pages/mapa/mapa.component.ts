@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Map, MapStyle, MaptilerGeolocateControl, config } from '@maptiler/sdk';
+import { GeolocateControl, Map, MapStyle, MaptilerGeolocateControl, config, geolocation } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 
 @Component({
@@ -41,6 +41,7 @@ export class MapaComponent implements OnInit, AfterViewInit, OnDestroy {
         geolocateControl: true,
         terrainControl: true,
         scaleControl: true,
+        fullscreenControl: "top-left",
       });
     }
   }
