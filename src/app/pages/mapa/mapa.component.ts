@@ -1,17 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy,
-  Inject,
-  PLATFORM_ID,
-} from '@angular/core';
+import {Component,OnInit,ViewChild,ElementRef,AfterViewInit,OnDestroy,Inject,PLATFORM_ID} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Map, MapStyle, config, Marker } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import * as maptilersdk from '@maptiler/sdk';
+
+
 
 maptilersdk.config.apiKey = 'oEDh6mPK2TIhdFrpa70J';
 
