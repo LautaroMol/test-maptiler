@@ -1,7 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { GeolocateControl, Map, MapStyle, MaptilerGeolocateControl, config, geolocation } from '@maptiler/sdk';
+import { Map, MapStyle, config, Marker } from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
+import * as maptilersdk from '@maptiler/sdk';
+
+maptilersdk.config.apiKey = 'oEDh6mPK2TIhdFrpa70J';
 
 @Component({
   selector: 'app-mapa',
@@ -12,7 +24,6 @@ import '@maptiler/sdk/dist/maptiler-sdk.css';
 })
 export class MapaComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Map | undefined;
-  geo: any;
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
@@ -32,17 +43,28 @@ export class MapaComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
       this.map = new Map({
         container: this.mapContainer.nativeElement,
-        style: MapStyle.STREETS,
-        center: [initialState.lng, initialState.lat],
-        zoom: initialState.zoom,
-        geolocateControl: true,
+        style: maptilersdk.MapStyle.STREETS,
+        center: [139.753, 35.6844],
+        zoom: 14,
         terrainControl: true,
         scaleControl: true,
-        fullscreenControl: "top-left",
+        fullscreenControl: 'top-left',
+        geolocateControl: true,
       });
+      new Marker({ color: '#FF0000' })
+        .setLngLat([139.7525, 35.6846])
+        .addTo(this.map);
+      this.map.addControl(
+        new maptilersdk.MaptilerGeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+        }),
+        'top-left'
+      );
     }
   }
 }
